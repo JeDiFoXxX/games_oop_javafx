@@ -3,7 +3,9 @@ package ru.job4j.chess;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.chess.firuges.Cell;
+import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.black.BishopBlack;
+import ru.job4j.chess.firuges.black.QueenBlack;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,4 +22,7 @@ public class LogicTest {
         });
         assertThat(exception.getMessage()).isEqualTo("Figure not found on the board.");
     }
+
+    @Test
+    void whenQueenBlackFoundOnTheBoard() { }
 }
