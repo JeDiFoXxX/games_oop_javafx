@@ -2,7 +2,9 @@ package ru.job4j.chess;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public final class Logic {
     private final Figure[] figures = new Figure[32];
@@ -21,7 +23,13 @@ public final class Logic {
     }
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
-        return true;
+        boolean result = Arrays.stream(steps)
+                .anyMatch(step -> Arrays.stream(figures)
+                        .noneMatch(figure -> figure.position().equals(step)));
+        if (result) {
+            return true;
+        }
+        throw new OccupiedCellException("Cell is occupied.");
     }
 
     public void clean() {
@@ -30,12 +38,11 @@ public final class Logic {
     }
 
     private int findBy(Cell cell) throws FigureNotFoundException {
-        for (int index = 0; index != figures.length; index++) {
-            Figure figure = figures[index];
-            if (figure != null && figure.position().equals(cell)) {
-                return index;
-            }
-        }
-        throw new FigureNotFoundException("Figure not found on the board.");
+        return IntStream.range(0, figures.length)
+                .filter(index -> figures[index] != null)
+                .filter(index -> figures[index].position().equals(cell))
+                .findFirst()
+                .orElseThrow(() -> new FigureNotFoundException("Figure not found on the board."));
+
     }
 }
