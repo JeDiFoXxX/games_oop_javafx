@@ -4,6 +4,7 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 public final class Logic {
@@ -25,11 +26,12 @@ public final class Logic {
     private boolean free(Cell[] steps) throws OccupiedCellException {
         boolean result = Arrays.stream(steps)
                 .anyMatch(step -> Arrays.stream(figures)
-                        .noneMatch(figure -> figure.position().equals(step)));
+                        .filter(Objects::nonNull)
+                        .anyMatch(figure -> figure.position().equals(step)));
         if (result) {
-            return true;
+            throw new OccupiedCellException("Cell is occupied.");
         }
-        throw new OccupiedCellException("Cell is occupied.");
+        return true;
     }
 
     public void clean() {
@@ -44,5 +46,9 @@ public final class Logic {
                 .findFirst()
                 .orElseThrow(() -> new FigureNotFoundException("Figure not found on the board."));
 
+    }
+
+    public int findByForTest(Cell cell) throws FigureNotFoundException {
+        return findBy(cell);
     }
 }

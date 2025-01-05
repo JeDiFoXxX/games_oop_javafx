@@ -26,7 +26,7 @@ public class BishopBlack implements Figure {
             );
         }
         int deltaX = Integer.signum(dest.getX() - position.getX());
-        int deltaY = Integer.signum(dest.getY() - position().getY());
+        int deltaY = Integer.signum(dest.getY() - position.getY());
         return IntStream.range(0, Math.abs(position.getX() - dest.getX()))
                 .mapToObj(index -> {
                     int x = position().getX() + (index + 1) * deltaX;

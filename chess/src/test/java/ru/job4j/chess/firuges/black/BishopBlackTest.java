@@ -16,12 +16,6 @@ class BishopBlackTest {
     }
 
     @Test
-    void copy() {
-        BishopBlack bishopBlack = new BishopBlack(Cell.F8);
-        assertThat(bishopBlack.copy(Cell.D6).position()).isEqualTo(Cell.D6);
-    }
-
-    @Test
     void way() {
         BishopBlack bishopBlack = new BishopBlack(Cell.C1);
         Cell[] expected = new Cell[]{Cell.D2, Cell.E3, Cell.F4, Cell.G5};
@@ -50,5 +44,11 @@ class BishopBlackTest {
     void whenIsDiagonalThenFalse() {
         BishopBlack bishopBlack = new BishopBlack(Cell.F8);
         assertThat(bishopBlack.isDiagonal(bishopBlack.position(), Cell.A2)).isFalse();
+    }
+
+    @Test
+    void copy() {
+        BishopBlack bishopBlack = new BishopBlack(Cell.F8);
+        assertThat(bishopBlack.copy(Cell.D6).position()).isEqualTo(Cell.D6);
     }
 }
